@@ -24,24 +24,26 @@ namespace :sms do
     guests.each_with_index do |guest, index|
       row = (index + 1) + 1 # Headings are on row 1
 
-      message = "❤️⭐️❤️⭐️❤️⭐️❤️⭐️
+      message = %(
+        👰🤵👰🤵👰🤵👰🤵👰🤵
 
-      Dear #{guest[:name]},
+        Dear #{guest[:name]},
 
-      💌 Save the date!
+        💌 Save the date!
 
-      Jen & Pete are delighted to invite you to their wedding.
+        Jen & Pete are delighted to invite you to their wedding.
 
-      September 15th, 2018.
+        September 15th, 2018.
 
-      The Copse, Mill Lane, Kidmore End, Oxon, RG4 9HA.
-      Map 🗺 -> https://goo.gl/vZdmsp
+        The Copse, Mill Lane, Kidmore End, Oxon, RG4 9HA.
+        Map 🗺 -> https://goo.gl/vZdmsp
 
-      The ceremony will begin at 2pm. More details to follow.
+        The ceremony will begin at 2pm. More details to follow.
 
-      Please text YES if you are saving the date and can join us. Text NO if sadly, you have something better to do 😉.
-
-      ❤️⭐️❤️⭐️❤️⭐️❤️⭐️"
+        Please text YES if you are saving the date and can join us. Text NO if sadly, you have something better to do 😉.
+          
+        👰🤵👰🤵👰🤵👰🤵👰🤵
+      )
 
       begin
         @twilio.api.account.messages.create(
@@ -53,7 +55,7 @@ namespace :sms do
         ws[row, 3] = ws[row, 3].blank? ? 1 : ws[row, 3].to_i + 1
         ws.save
         ws.reload
-        p "Sent: #{person[:name]} - #{person[:number]}"
+        p "Sent: #{guest[:name]} - #{guest[:number]}"
       rescue => e
         Rails.logger.error(
           "name=#{guest[:name]}" +
