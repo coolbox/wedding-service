@@ -1,7 +1,7 @@
 desc 'set of console tasks for ops team'
 namespace :sms do
   desc 'Send an SMS to all guests to save the date'
-  task :save_the_date => [:environment] do |t, args|
+  task :save_the_date => [:environment] do |t|
     session = GoogleDrive.saved_session(
       "./config/google_config_new.json",
       nil,
@@ -17,7 +17,6 @@ namespace :sms do
         number: ws[row, 1],
         name: ws[row, 2]
       }
-      p "#{person[:name]} - #{person[:number]}"
       guests << person
     end
 
@@ -54,6 +53,7 @@ namespace :sms do
         ws[row, 3] = ws[row, 3].blank? ? 1 : ws[row, 3].to_i + 1
         ws.save
         ws.reload
+        p "Sent: #{person[:name]} - #{person[:number]}"
       rescue => e
         Rails.logger.error(
           "name=#{guest[:name]}" +
