@@ -9,7 +9,7 @@ namespace :sms do
       ENV["GOOGLE_CLIENT_SECRET"]
     )
 
-    ws = session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[6]
+    ws = session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[5]
 
     guests = []
     (2..3).each do |row|
