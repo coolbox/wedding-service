@@ -13,8 +13,10 @@ class BaseController < ApplicationController
 
       if message_body.include?("yes")
         update_cell(row, 4, "yes")
+        automated_response.message(body: "🎉🎉 Thanks for confirming, we'll be in touch! 🎉🎉")
       elsif message_body.include?("no")
         update_cell(row, 4, "no")
+        automated_response.message(body: "🎉🎉 Sorry to hear that, we still love you though! ❤️👫")
       else
         Rails.logger.warn "Guest responded with: #{message_body}"
       end
@@ -25,6 +27,10 @@ class BaseController < ApplicationController
   end
 
   private
+
+  def automated_response
+    @automated_response ||= Twilio::TwiML::MessagingResponse.new
+  end
 
   def drive_session
     @drive_session ||= GoogleDrive.saved_session(
