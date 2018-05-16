@@ -24,14 +24,15 @@ namespace :sms do
     guests.each_with_index do |guest, index|
       row = (index + 1) + 1 # Headings are on row 1
 
-      message = %(
+      message =
+      <<~EOS
         👰🤵👰🤵👰🤵👰🤵👰🤵
 
         Dear #{guest[:name]},
 
         💌 Save the date!
 
-        Jen & Pete are delighted to invite you to their wedding.
+        Jen and Pete are delighted to invite you to their wedding.
 
         September 15th, 2018.
 
@@ -40,10 +41,12 @@ namespace :sms do
 
         The ceremony will begin at 2pm. More details to follow.
 
-        Please reply YES if you are saving the date and can join us. Text NO if sadly, you have something better to do 😉.
+        Please reply YES if you are saving the date and can join us.
+
+        Reply NO if sadly, you have something better to do 😉.
 
         👰🤵👰🤵👰🤵👰🤵👰🤵
-      )
+      EOS
 
       begin
         @twilio.api.account.messages.create(
