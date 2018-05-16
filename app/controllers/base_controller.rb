@@ -5,6 +5,7 @@ class BaseController < ApplicationController
     @ws = drive_session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[5]
     from_number = params['From'].downcase.tr("+", '')
     message_body = params['Body'].downcase
+    response_body = ""
 
     guest_cell = @ws.cells.select { |key, value| value == from_number }
     if !guest_cell.blank?
@@ -13,16 +14,21 @@ class BaseController < ApplicationController
 
       if message_body.include?("yes")
         update_cell(row, 4, "yes")
-        automated_response.message(body: "🎉🎉 Thanks for confirming, we'll be in touch! 🎉🎉")
+        response_body = "🎉🎉 Thanks for confirming, we'll be in touch! 🎉🎉"
       elsif message_body.include?("no")
         update_cell(row, 4, "no")
-        automated_response.message(body: "🎉🎉 Sorry to hear that, we still love you though! ❤️👫")
+        response_body = "Sorry to hear that, we still love you though! ❤️👫"
       else
         Rails.logger.warn "Guest responded with: #{message_body}"
       end
       add_to_inbox!(from_number, message_body)
     else
       Rails.logger.info "Guest not found with number: #{from_number}"
+    end
+
+    if !response_body.blank?
+      automated_response.message(body: response_body)
+      render xml: automated_response.to_xml
     end
   end
 
