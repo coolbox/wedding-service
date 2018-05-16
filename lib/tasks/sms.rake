@@ -40,8 +40,8 @@ namespace :sms do
 
         The ceremony will begin at 2pm. More details to follow.
 
-        Please text YES if you are saving the date and can join us. Text NO if sadly, you have something better to do 😉.
-          
+        Please reply YES if you are saving the date and can join us. Text NO if sadly, you have something better to do 😉.
+
         👰🤵👰🤵👰🤵👰🤵👰🤵
       )
 
