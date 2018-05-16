@@ -2,7 +2,7 @@ class BaseController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:incoming]
 
   def incoming
-    @ws = drive_session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[6]
+    @ws = drive_session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[5]
     from_number = params['From'].downcase.tr("+", '')
     message_body = params['Body'].downcase
 
@@ -48,7 +48,7 @@ class BaseController < ApplicationController
   end
 
   def add_to_inbox!(from_number, message_body)
-    inbox = drive_session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[7]
+    inbox = drive_session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[6]
     row = (inbox.num_rows + 1)
     Rails.logger.info "#{row} - #{message_body} - #{from_number}"
     inbox[row, 1] = message_body
