@@ -1,4 +1,5 @@
 class BaseController < ApplicationController
+  include Weather
   skip_before_action :verify_authenticity_token, only: [:incoming]
 
   def incoming
@@ -30,10 +31,12 @@ class BaseController < ApplicationController
         acceptance_rate = @stats_ws['D2']
 
         response_body = "R.S.V.P update:"
-        response_body += "\n\nTotal accepted: #{confirmed_guests}"
-        response_body += "\nTotal declined: #{declined_guests}"
-        response_body += "\nTotal no response: #{no_response_guests}"
-        response_body += "\nTotal acceptance rate: #{acceptance_rate}"
+        response_body += "\n\nTotal accepted: #{confirmed_guests} ✅"
+        response_body += "\nTotal declined: #{declined_guests} 🚫"
+        response_body += "\nTotal no response: #{no_response_guests} 🤷‍♀️🤷‍♂️"
+        response_body += "\nAcceptance rate: #{acceptance_rate} 🎉"
+      elsif message_body == "weather"
+        response_body = weather_forecast
       else
         Rails.logger.warn "Guest responded with: #{message_body}"
       end
