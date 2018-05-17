@@ -2,7 +2,9 @@ class BaseController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:incoming]
 
   def incoming
-    @ws = drive_session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[5]
+    @ws = drive_session
+      .spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE")
+      .worksheets[5]
     from_number = params['From'].downcase.tr("+", '')
     message_body = params['Body'].downcase
     response_body = ""
@@ -18,6 +20,20 @@ class BaseController < ApplicationController
       elsif message_body.include?("no")
         update_cell(row, 4, "no")
         response_body = "Sorry to hear that, we still love you though! ❤️👫"
+      elsif message_body == "numbers"
+        @stats_ws = drive_session
+          .spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE")
+          .worksheets[7]
+        confirmed_guests = @stats_ws['A2']
+        declined_guests = @stats_ws['B2']
+        no_response_guests = @stats_ws['C2']
+        acceptance_rate = @stats_ws['D2']
+
+        response_body = "R.S.V.P update:"
+        response_body += "\n\nTotal accepted: #{confirmed_guests}"
+        response_body += "\nTotal declined: #{declined_guests}"
+        response_body += "\nTotal no response: #{no_response_guests}"
+        response_body += "\nTotal acceptance rate: #{acceptance_rate}"
       else
         Rails.logger.warn "Guest responded with: #{message_body}"
       end
