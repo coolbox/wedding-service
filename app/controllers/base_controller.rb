@@ -17,7 +17,7 @@ class BaseController < ApplicationController
 
       if message_body.include?("yes")
         update_cell(row, 4, "yes")
-        response_body = "🎉🎉 Thanks for confirming, we'll be in touch! 🎉🎉"
+        response_body = "🎉🎉 Thanks for confirming, we'll be in touch with more details soon! 🎉🎉"
       elsif message_body.include?("no")
         update_cell(row, 4, "no")
         response_body = "Sorry to hear that, we still love you though! ❤️👫"

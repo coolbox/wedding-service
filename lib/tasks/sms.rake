@@ -26,26 +26,27 @@ namespace :sms do
 
       message =
       <<~EOS
-        👰🤵👰🤵👰🤵👰🤵👰🤵
+        🌺🍃🌺👰🤵🌺🍃🌺
 
         Dear #{guest[:name]},
 
         💌 Save the date!
 
-        Jen and Pete are delighted to invite you to their wedding.
+        Jenny Baskerville and Peter Roome are delighted to invite you to their wedding.
 
-        September 15th, 2018.
+        Saturday 15th September, 2018.
 
-        The Copse, Mill Lane, Kidmore End, Oxon, RG4 9HA.
-        Map 🗺 -> https://goo.gl/vZdmsp
+        The Copse, Mill Lane, Kidmore End, Oxon, RG4 9HA. Map 🗺 -> https://goo.gl/vZdmsp.
 
-        The ceremony will begin at 2pm. More details to follow.
+        The ceremony will begin at 2pm. We are sorry we are unable to accommodate children.
 
         Please reply YES if you are saving the date and can join us.
 
-        Reply NO if sadly, you have something better to do 😉.
+        Reply NO if sadly you have something better to do 😉.
 
-        👰🤵👰🤵👰🤵👰🤵👰🤵
+        #roomerville
+
+        🌺🍃🌺👰🤵🌺🍃🌺
       EOS
 
       begin
