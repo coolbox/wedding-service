@@ -58,3 +58,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Custom
 gem 'twilio-ruby', '~> 5.10.0'
 gem 'google_drive', '~> 2.1', '>= 2.1.5'
+gem "newrelic_rpm"
