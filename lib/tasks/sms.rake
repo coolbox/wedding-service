@@ -12,12 +12,14 @@ namespace :sms do
     ws = session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[5]
 
     guests = []
-    (2..ENV["NUMBER_OF_GUESTS"].to_i).each do |row|
+    (2..ws.rows.length).each do |row|
       person = {
         number: ws[row, 1],
-        name: ws[row, 2]
+        name: ws[row, 2],
+        message_count: ws[row, 3],
       }
-      guests << person
+
+      guests << person if person[:message_count].to_i < 1
     end
 
     @twilio = Twilio::REST::Client.new(ENV["TWILIO_SID"], ENV["TWILIO_TOKEN"])
