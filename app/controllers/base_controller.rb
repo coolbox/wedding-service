@@ -36,6 +36,7 @@ class BaseController < ApplicationController
       elsif message_body == "weather"
         response_body = weather_forecast
       else
+        response_body = "A simple Yes or No will suffice please 😏."
         Rails.logger.warn "Guest responded with: #{message_body}"
       end
     else
