@@ -8,7 +8,7 @@ class BaseController < ApplicationController
     message_body = params['Body'].downcase
     response_body = ""
 
-    guest_cell = @ws.cells.select { |key, value| value == from_number }
+    guest_cell = @ws.cells.select { |key, value| value.include?(from_number) }
     if !guest_cell.blank?
       row = guest_cell.keys.first[0]
       Rails.logger.info "Found in #{guest_cell} - #{guest_cell.keys.first[0]}"
