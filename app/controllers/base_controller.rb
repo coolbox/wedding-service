@@ -3,9 +3,7 @@ class BaseController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:incoming]
 
   def incoming
-    @ws = drive_session
-      .spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE")
-      .worksheets[5]
+    @ws = drive_session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[5]
     from_number = params['From'].downcase.tr("+", '')
     message_body = params['Body'].downcase
     response_body = ""
@@ -40,10 +38,11 @@ class BaseController < ApplicationController
       else
         Rails.logger.warn "Guest responded with: #{message_body}"
       end
-      add_to_inbox!(from_number, message_body)
     else
       Rails.logger.info "Guest not found with number: #{from_number}"
     end
+
+    add_to_inbox!(from_number, message_body)
 
     if !response_body.blank?
       automated_response.message(body: response_body)
