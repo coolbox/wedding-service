@@ -12,7 +12,7 @@ namespace :sms do
     ws = session.spreadsheet_by_key("1-DVANo0uHCxvv8CBpXY-DsbKvQhSbS9_jaUkmlASfEE").worksheets[5]
 
     guests = []
-    (2..5).each do |row|
+    (2..ENV["NUMBER_OF_GUESTS"]).each do |row|
       person = {
         number: ws[row, 1],
         name: ws[row, 2]
